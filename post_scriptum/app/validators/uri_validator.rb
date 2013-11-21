@@ -9,5 +9,7 @@ class UriValidator < ActiveModel::EachValidator
     unless resp == true
       record.errors[attribute] << (options[:message] || "is not an uri")
     end
+
+    # plus mock RestClient.head
   end
 end

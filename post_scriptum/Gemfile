@@ -9,6 +9,7 @@ group :development, :test do
   gem 'spork', '~> 0.9.2'
   gem 'shoulda-matchers', '= 1.4.1'
   gem 'factory_girl', '~> 2.6.0'
+  gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'webmock', '>= 1.9.0', :require => false
   gem 'capybara', '~> 2.0'
