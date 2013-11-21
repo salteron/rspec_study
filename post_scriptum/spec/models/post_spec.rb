@@ -1,5 +1,12 @@
 require 'spec_helper'
 
 describe Post do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before { @post = Post.new() }
+
+  subject { @post }
+
+  it { should respond_to(:title) }
+  it { should respond_to(:content) }
+  it { should respond_to(:user_id) }
+  it { should respond_to(:image_url) }
 end
