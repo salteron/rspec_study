@@ -56,7 +56,7 @@ describe Post do
         post.image_url = invalid_url
 
         expect(post).not_to be_valid
-        expect(post.errors[:image_url]).not_to be_empty
+        post.should have(1).error_on(:image_url)
       end
     end
   end
@@ -90,7 +90,7 @@ describe Post do
     subject { another_post }
 
     it { should_not be_valid }
-    specify { another_post.errors[:slug].should_not be_empty }
+    specify { another_post.should have(1).error_on(:slug) }
   end
 
   describe 'after creating' do
@@ -171,6 +171,5 @@ describe Post do
     it 'should return false if twitter status is false' do
       expect(post.posted_to_twitter?).to be_false
     end
-
   end
 end

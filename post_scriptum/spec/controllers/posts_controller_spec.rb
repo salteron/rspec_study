@@ -49,6 +49,7 @@ describe PostsController do
                                                                  user: user)
 
         response.should redirect_to user_post_path(user, @post)
+        flash[:notice].should eq 'Post saved successfully'
       end
     end
 
