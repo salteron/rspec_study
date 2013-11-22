@@ -10,5 +10,9 @@ FactoryGirl.define do
     user
     image_url 'http://rubyonrails.org/images/rails.png'
     slug      '1-title'
+
+    factory :post_with_invalid_title do
+      title  nil
+    end
   end
 end

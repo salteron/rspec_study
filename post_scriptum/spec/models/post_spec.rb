@@ -3,14 +3,7 @@ require 'spec_helper'
 describe Post do
   let(:user) { FactoryGirl.create(:user) }
   let(:post) { FactoryGirl.build(:post, user: user) }
-  let(:fake_twitter) { double('FakeTwitter') }
-
-  before do
-    fake_twitter.stub(:update).
-      with(an_instance_of(String), an_instance_of(String))
-
-    stub_const('Twitter', fake_twitter)
-  end
+  let!(:fake_twitter) { mock_twitter }
 
   subject { post }
 

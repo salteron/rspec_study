@@ -9,7 +9,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.find(params[:id])
 
     if @post.update_attributes(params[:post])
-      redirect_to user_post_path(current_user, @post), 
+      redirect_to user_post_path(current_user, @post),
         :notice => "Post saved successfully"
     else
       render :new
