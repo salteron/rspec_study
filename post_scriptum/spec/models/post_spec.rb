@@ -61,6 +61,12 @@ describe Post do
     end
   end
 
+  describe 'when image_url is valid but not available' do
+    it 'should not be valid' do
+
+    end
+  end
+
   describe 'after validation with blank slug' do
     before do
       post.slug = nil

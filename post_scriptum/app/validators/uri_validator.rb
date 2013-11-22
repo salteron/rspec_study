@@ -1,3 +1,5 @@
+require 'rest-client'
+
 class UriValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     begin
@@ -6,8 +8,21 @@ class UriValidator < ActiveModel::EachValidator
     rescue URI::InvalidURIError
       resp = false
     end
-    unless resp == true
+
+    if resp == false
       record.errors[attribute] << (options[:message] || "is not an uri")
+    else
+      available = true
+
+      begin
+        available = RestClient::Request.execute(
+          :method => :head, :url => value, :timeout => 1, :open_timeout => 1
+        ) == 200
+      rescue
+        available = false
+      end
+
+      record.errors[attribute] << "is not available" if !available
     end
 
     # plus mock RestClient.head

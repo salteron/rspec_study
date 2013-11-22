@@ -12,3 +12,14 @@ def mock_twitter
 
   fake_twitter
 end
+
+def mock_uri_validator
+  fake_uri_validator = double('FakeUriValidator')
+
+  fake_uri_validator.stub(:validate_each).
+    with(an_instance_of(Post), an_instance_of(Symbol), an_instance_of(String))
+
+  stub_conts('UriValidator', fake_uri_validator)
+
+  fake_uri_validator
+end
