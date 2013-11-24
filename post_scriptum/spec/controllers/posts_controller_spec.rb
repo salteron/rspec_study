@@ -6,6 +6,7 @@ describe PostsController do
   before do
     sign_in user
     mock_twitter
+    mock_uri_validator
   end
 
   describe 'current_user' do
@@ -37,8 +38,11 @@ describe PostsController do
 
       it 'should change @post attribute' do
         expect do
-          put :update, id: @post, post: FactoryGirl.attributes_for(:post,
-            user: user, title: 'new_title')
+          put :update, id: @post, post: FactoryGirl.attributes_for(
+            :post,
+            user: user,
+            title: 'new_title'
+          )
 
           @post.reload
         end.to change(@post, :title).from('title').to('new_title')
