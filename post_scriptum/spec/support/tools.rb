@@ -13,7 +13,6 @@ def mock_twitter
   fake_twitter
 end
 
-def mock_uri_validator
-  UriValidator.any_instance.stub(:send_head_request).and_return(200)
-  UriValidator.any_instance.stub(:valid_uri?).and_return(true)
+def  stub_uri_validator
+  UriValidator.any_instance.stub(:validate_each)
 end

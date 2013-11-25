@@ -5,7 +5,7 @@ describe Post do
   let(:post) { FactoryGirl.build(:post, user: user) }
   let!(:fake_twitter) { mock_twitter }
 
-  before { mock_uri_validator }
+  before { stub_uri_validator }
 
   subject { post }
 
@@ -14,7 +14,7 @@ describe Post do
   it { should respond_to(:user_id) }
   it { should respond_to(:image_url) }
   it { should respond_to(:slug) }
-  it { should respond_to(:status_id) }
+  # it { should respond_to(:status_id) }
   its(:user) { should eq user }
 
   it { should be_valid }
@@ -47,40 +47,6 @@ describe Post do
   describe 'when user is not present' do
     before { post.user = nil }
     it { should_not be_valid }
-  end
-
-  describe 'when image_url is invalid' do
-    before { UriValidator.any_instance.stub(:valid_uri?).and_return(false) }
-
-    it { should_not be_valid }
-    it { should have(1).errors_on(:image_url) }
-
-    specify { post.errors_on(:image_url).should include('is not an uri') }
-  end
-
-  describe 'when image_url is not available' do
-    context 'server responds with non-200 code' do
-      before do
-        UriValidator.any_instance.stub(:send_head_request).and_return(500)
-      end
-
-      it { should_not be_valid }
-      it { should have(1).errors_on(:image_url) }
-
-      specify { post.errors_on(:image_url).should include('is not available') }
-    end
-
-    context 'connection timeout' do
-      before do
-        UriValidator.any_instance.stub(:send_head_request).and_raise(
-          RestClient::RequestTimeout)
-      end
-
-      it { should_not be_valid }
-      it { should have(1).errors_on(:image_url) }
-
-      specify { post.errors_on(:image_url).should include('is not available') }
-    end
   end
 
   describe 'after validation with blank slug' do

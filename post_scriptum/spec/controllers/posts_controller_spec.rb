@@ -6,7 +6,7 @@ describe PostsController do
   before do
     sign_in user
     mock_twitter
-    mock_uri_validator
+    stub_uri_validator
   end
 
   describe 'current_user' do
